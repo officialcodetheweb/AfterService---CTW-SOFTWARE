@@ -1,0 +1,103 @@
+{
+  "name": "after-service",
+  "productName": "After Service",
+  "version": "2.6.0",
+  "description": "After Service by CTW Software - fast photo and video editing for church media teams, with After Service Player",
+  "main": "src/main.js",
+  "author": "CTW Software",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "icons": "node scripts/make-icon.js",
+    "dist:win": "node scripts/make-icon.js && node scripts/check-license.js && node scripts/build-win.js",
+    "license": "electron tools/license-generator",
+    "dist:manager": "node scripts/build-manager.js",
+    "server": "node server/server.js"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8",
+    "@electron/fuses": "^1.8.0"
+  },
+  "build": {
+    "appId": "com.ctw.afterservice",
+    "productName": "After Service",
+    "copyright": "Copyright © CTW Software",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "After Service",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico",
+      "installerSidebar": "build/installerSidebar.bmp",
+      "uninstallerSidebar": "build/installerSidebar.bmp",
+      "include": "build/installer.nsh"
+    },
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**"
+    ],
+    "fileAssociations": [
+      {
+        "ext": "aspreset",
+        "name": "AfterServicePreset",
+        "description": "After Service Preset",
+        "icon": "build/preset.ico",
+        "role": "Editor"
+      }
+    ],
+    "extraResources": [
+      {
+        "from": "build/player.ico",
+        "to": "player.ico"
+      },
+      {
+        "from": "build/converter.ico",
+        "to": "converter.ico"
+      },
+      {
+        "from": "build/aslic.exe",
+        "to": "aslic.exe"
+      },
+      {
+        "from": "build/whisper",
+        "to": "whisper",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "afterPack": "scripts/after-pack.js",
+    "publish": null
+  },
+  "dependencies": {
+    "ffmpeg-static": "^5.2.0",
+    "heic-convert": "^2.1.0",
+    "qrcode": "^1.5.4"
+  }
+}

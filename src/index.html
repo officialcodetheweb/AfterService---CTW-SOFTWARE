@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' file: data: blob:; media-src 'self' asmedia: blob:; connect-src 'self' asmedia:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>After Service — CTW Software</title>
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="top">
+  <div class="brand">
+    <svg viewBox="0 0 40 40" width="34" height="34"><rect x="1" y="1" width="38" height="38" rx="9" fill="#1a120b"/><circle cx="20" cy="20" r="12.5" fill="none" stroke="#ff8a1f" stroke-width="1.8"/><rect x="18.6" y="11" width="2.8" height="16" rx="1" fill="#ff8a1f"/><rect x="14.6" y="16.4" width="10.8" height="2.6" rx="1" fill="#ff8a1f"/></svg>
+    <div><b>After Service</b><small>CTW Software</small></div>
+  </div>
+  <nav class="tabs"><button class="tab on" data-t="pic">Picture Editing</button><button class="tab" data-t="vid">Video Editing</button></nav>
+  <div class="ws"><button id="openPlayer" class="ghost plbtn" title="Open After Service Player"><i></i>Player</button><span id="wsName"></span><button id="openRoot" class="ghost">Open workspace</button></div>
+</header>
+
+<main id="pic" class="view on">
+  <aside class="left">
+    <button id="pickFolder" class="btn">Choose Picture Folder</button>
+    <div id="srcPath" class="muted">No folder selected</div>
+    <div id="count" class="muted"></div>
+    <div id="selBar"></div>
+    <div id="thumbs"></div>
+    <div class="muted small tip">Tip: Ctrl+click to select several pictures · Delete key removes them</div>
+  </aside>
+  <section class="stage">
+    <div id="stageWrap"><canvas id="cv"></canvas>
+      <div id="empty"><h2>Select your service pictures</h2><p>Choose the folder that holds the photos, add your overlay, set the look, and apply it to every picture at once.</p></div>
+    </div>
+    <div class="bar"><span id="imgName" class="muted"></span><span class="sp"></span>
+      <button id="cutBtn" class="ghost acc" title="Remove the background (cut-out) of this photo"><span class="lg">Remove background</span><span class="sm">Cut-out</span></button><button id="designBtn" class="ghost acc" title="Recap collages, flyers and YouTube thumbnails">Design</button><button id="cmp" class="ghost"><span class="lg">Hold to compare</span><span class="sm">Compare</span></button><button id="resetAll" class="ghost"><span class="lg">Reset all</span><span class="sm">Reset</span></button></div>
+  </section>
+  <aside class="right">
+    <div class="rtabs"><button class="rt on" data-p="pFilters">Filters</button><button class="rt" data-p="pOverlay">Overlay</button><button class="rt" data-p="pPresets">Presets</button></div>
+    <div class="rbody"><div id="pFilters" class="rp on"></div><div id="pOverlay" class="rp"></div><div id="pPresets" class="rp"></div></div>
+    <button id="apply" class="primary">Apply &amp; Save…</button>
+  </aside>
+</main>
+<main id="vid" class="view">
+  <section class="card vtools">
+    <h5>Add</h5>
+    <div class="tools">
+      <button id="toVid" class="tool"><span>Video</span></button>
+      <button id="toText" class="tool"><span>Text</span></button>
+      <button id="toShape" class="tool"><span>Shape</span></button>
+      <button id="toImg" class="tool"><span>Image</span></button>
+      <button id="toSnd" class="tool"><span>Sound</span></button>
+      <button id="toCap" class="tool"><span>Captions</span></button>
+    </div>
+    <div class="ltabs"><button class="ltab on" data-l="media">Media</button><button class="ltab" data-l="sounds">Sounds <i id="sndCount"></i></button></div>
+    <div id="vMedia" class="lpane on"></div>
+    <div id="vSounds" class="lpane">
+      <div class="sbar"><input type="text" id="sndQ" placeholder="Search sounds…" spellcheck="false"></div>
+      <div class="sbtns"><button class="ghost" id="sndAdd">+ Add sounds</button><button class="ghost" id="sndOpen">Open folder</button></div>
+      <div id="sndList"></div>
+      <div class="sdrop" id="sndDrop"><b>Drop sound files anywhere here</b><span id="sndDirTxt">or save them in your “Sounds” folder</span></div>
+    </div>
+  </section>
+
+  <section class="card vprev">
+    <div class="phead"><b>My sequence</b><span class="pchip" id="vFmtChip"></span><span class="sp"></span><span class="muted" id="vDurLbl">Length <b id="vDur">00:00:00:00</b></span><div class="psize" id="pSize"><button data-s="small" title="Small preview">Small</button><button data-s="normal" class="on" title="Normal preview">Normal</button><button data-s="big" title="Big preview — hides the side panels">Big</button><button data-s="full" title="Full screen preview (F) — Esc to exit"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div><button class="expbtn" id="vExportBtn"></button></div>
+    <div class="pbody">
+      <div id="vstage"><canvas id="vcv"></canvas>
+        <div id="vEngine" class="engine"><b>Video engine missing</b><span>Run <code>npm install</code> in the After Service folder, then restart.</span></div>
+      </div>
+      <div class="meter"><canvas id="vMeter" width="76" height="300"></canvas><small>dB</small></div>
+    </div>
+    <div class="transport">
+      <button class="tb" id="vTrimIn" title="Trim clip start at playhead (I)"></button>
+      <button class="tb" id="vTrimOut" title="Trim clip end at playhead (O)"></button>
+      <span class="gap"></span>
+      <button class="tb" id="vStart" title="Go to start (Home)"></button>
+      <button class="tb" id="vPrev" title="Previous frame (←)"></button>
+      <button class="tb play" id="vPlay" title="Play / pause (Space)"></button>
+      <button class="tb" id="vNext" title="Next frame (→)"></button>
+      <button class="tb" id="vEnd" title="Go to end (End)"></button>
+      <span class="gap"></span>
+      <button class="tb" id="vSplit" title="Split clip at playhead (S)"></button>
+    </div>
+  </section>
+
+  <section class="card vins">
+    <div class="vtabs"><button class="vtab on" data-v="props">Properties</button><button class="vtab" data-v="text" title="Edit by text — cut the video by deleting words">Text</button><button class="vtab" data-v="filters">Filters</button><button class="vtab" data-v="trans">Transitions</button><button class="vtab" data-v="audio">Audio</button><button class="vtab" data-v="export">Export</button></div>
+    <div id="ins"></div>
+  </section>
+
+  <section class="card vtl">
+    <div class="tlbar">
+      <div class="tc" id="vTc">00:00:00:00</div>
+      <button class="ib2" id="tUndo" title="Undo (Ctrl+Z)"></button><button class="ib2" id="tRedo" title="Redo (Ctrl+Y)"></button>
+      <span class="div"></span>
+      <button class="ib2" id="tSplit" title="Split (S)"></button><button class="ib2" id="tDel" title="Delete selected (Del)"></button><button class="ib2 tg" id="tSnap" title="Snapping"></button>
+      <span class="sp"></span>
+      <button class="ib2" id="tFit" title="Fit timeline to window"></button>
+      <input type="range" id="vZoom" min="0" max="548" value="370" title="Zoom (Ctrl+Wheel)">
+    </div>
+    <div class="tl-scroll" id="tlScroll"><div id="tlGrid"></div></div>
+  </section>
+</main>
+<div id="toast"></div>
+<script src="renderer.js"></script>
+<script src="video.js"></script>
+<script src="import-ui.js"></script>
+<script src="share-ui.js"></script>
+<script src="cull-ui.js"></script>
+<script src="captions-ui.js"></script>
+<script src="studio.js"></script>
+<script src="montage-ui.js"></script>
+<script src="services-ui.js"></script>
+<script src="hotfolder-ui.js"></script>
+<script src="team-ui.js"></script>
+<script src="multicam-ui.js"></script>
+<script src="update-ui.js"></script>
+</body></html>

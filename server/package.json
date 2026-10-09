@@ -1,0 +1,9 @@
+{
+  "name": "after-service-licence-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CTW Software — online licence dashboard and update server for After Service",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

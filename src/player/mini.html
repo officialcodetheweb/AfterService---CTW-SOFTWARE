@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>Now playing</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#140f0b;font:12px 'Segoe UI',system-ui,sans-serif;color:#f4eee8;user-select:none}
+.bar{height:100%;display:flex;align-items:center;gap:8px;padding:0 6px 0 10px;border:1px solid #ff8a1f;background:linear-gradient(180deg,#22170e,#140f0b);box-shadow:inset 0 0 18px #ff8a1f22}
+canvas{width:58px;height:30px;flex:none}
+.tx{flex:1;min-width:0;-webkit-app-region:drag;cursor:move;overflow:hidden}
+.tx small{display:block;font-size:8.5px;letter-spacing:1.6px;color:#ff8a1f;font-weight:700;line-height:1.1}
+.tx .mq{white-space:nowrap;overflow:hidden;position:relative;height:16px}
+.tx b{display:inline-block;font-weight:600;font-size:12px;white-space:nowrap;padding-right:40px}
+.tx .mq.run b{animation:mq var(--d,12s) linear infinite}
+@keyframes mq{0%,12%{transform:translateX(0)}100%{transform:translateX(calc(-50%))}}
+button{-webkit-app-region:no-drag;width:26px;height:26px;border:0;border-radius:7px;background:transparent;color:#ffd9a8;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;flex:none}
+button:hover{background:#3a230f;color:#fff}
+#pp{background:linear-gradient(135deg,#ffb35c,#ff8a1f);color:#1c0d00;border-radius:50%}#pp:hover{filter:brightness(1.1)}
+#cl{color:#9a8f84;width:20px}#cl:hover{color:#fff;background:#c8381f}
+</style></head>
+<body><div class="bar">
+<canvas id="w" width="116" height="60"></canvas>
+<div class="tx"><small id="lbl">NOW PLAYING</small><div class="mq" id="mq"><b id="t">—</b></div></div>
+<button id="pv" title="Previous"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M6 5v14M19 6l-10 6 10 6z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
+<button id="pp" title="Play / pause"></button>
+<button id="nx" title="Next"><svg viewBox="0 0 24 24" width="13" height="13"><path d="M18 5v14M5 6l10 6-10 6z" fill="currentColor" stroke="currentColor" stroke-width="2"/></svg></button>
+<button id="ex" title="Open player"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button>
+<button id="cl" title="Stop and close the player"><svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+<script src="mini.js"></script></body></html>

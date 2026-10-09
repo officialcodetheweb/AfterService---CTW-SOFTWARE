@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>After Service Converter</title><link rel="stylesheet" href="converter.css"></head>
+<body>
+<header class="tbar">
+  <div class="brand"><i class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3.5-3.5M20 16H7l3.5 3.5"/></svg></i><div><b>After Service</b><small>CONVERTER</small></div></div>
+  <div class="tacts"><button class="tbtn" id="bFiles">+ Add files</button><button class="tbtn" id="bFolder">+ Add folder</button><button class="tbtn" id="bEditor">Editor</button></div>
+</header>
+<main>
+  <section class="list" id="listWrap">
+    <div class="drop" id="drop">
+      <div class="dico"><svg viewBox="0 0 24 24" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11l-3-3M20 17H9l3 3"/><rect x="3" y="10" width="7" height="5" rx="1"/><rect x="14" y="9" width="7" height="5" rx="1"/></svg></div>
+      <h2>Drop pictures, videos or music here</h2>
+      <p>HEIC · JPG · PNG · WEBP · BMP · GIF · TIFF · ICO · AVIF · MOV · MP4 · MKV · AVI · WEBM · MP3 · WAV · M4A · FLAC · OGG and more</p>
+      <div class="drow"><button class="pbtn" id="dFiles">Add files</button><button class="gbtn" id="dFolder">Add a folder</button></div>
+    </div>
+    <div class="lhead" id="lhead"><b id="lcount"></b><span class="sp"></span><button class="lnk" id="bClearDone">Clear finished</button><button class="lnk" id="bClear">Remove all</button></div>
+    <div id="rows"></div>
+  </section>
+  <aside class="opts">
+    <h4>Quick jobs</h4>
+    <div class="chips" id="presets">
+      <button data-p="iphone">iPhone photos → JPG</button><button data-p="whatsapp">Video for WhatsApp</button>
+      <button data-p="audio">Extract sound (MP3)</button><button data-p="icon">Make an icon (ICO)</button>
+      <button data-p="web">Small web pictures</button><button data-p="pdf">Pictures → one PDF</button>
+    </div>
+    <div id="secs"></div>
+    <h4>Quality <b id="qv">90</b></h4><input type="range" id="q" min="10" max="100" value="90">
+    <div class="two">
+      <label>Picture size<select id="imgSize"><option value="0">Original</option><option value="3840">4K (3840)</option><option value="1920">1920 px</option><option value="1280">1280 px</option><option value="800">800 px</option></select></label>
+      <label>Video size<select id="vidSize"><option value="0">Original</option><option value="1080">1080p</option><option value="720">720p</option><option value="480">480p</option></select></label>
+    </div>
+    <label class="chk" id="pdfOneRow"><input type="checkbox" id="pdfOne"><i></i><span>Combine all pictures into one PDF</span></label>
+    <h4>Save to</h4>
+    <div class="dest"><label class="rad"><input type="radio" name="dest" value="same" checked><span>Same folder as each file</span></label><label class="rad"><input type="radio" name="dest" value="pick"><span id="destTxt">Choose a folder…</span></label></div>
+    <p class="note">Originals are never changed or deleted. HEIC can be converted from, but not saved as (Windows can't open it without paid extensions).</p>
+    <button class="primary" id="go" disabled>Convert</button>
+    <div class="sum" id="sum"></div>
+  </aside>
+</main>
+<div id="toast"></div>
+<script src="converter.js"></script>
+</body></html>

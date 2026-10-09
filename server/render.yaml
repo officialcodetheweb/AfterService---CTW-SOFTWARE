@@ -1,0 +1,18 @@
+# One-click setup on Render (render.com): New → Blueprint → choose this repository.
+services:
+  - type: web
+    name: after-service-licences
+    runtime: node
+    rootDir: server
+    buildCommand: "true"
+    startCommand: node server.js
+    plan: starter            # a paid plan is needed for the disk below (the free plan forgets files)
+    envVars:
+      - key: ADMIN_TOKEN
+        generateValue: true  # copy it from the Render dashboard into the Licence Manager
+      - key: DATA_DIR
+        value: /data
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 2
